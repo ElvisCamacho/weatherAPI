@@ -4,6 +4,7 @@ import getWeatherData from "./api/axios";
 function Weather() {
   const [weather, setWeather] = useState("");
   const [city, setcity] = useState("Copenhagen");
+  const [error, seterror] = useState("");
 
   const getData = async () => {
     try {
@@ -15,6 +16,7 @@ function Weather() {
       setWeather(main);
     } catch (e) {
       console.log(e.message);
+        seterror("Sorry: No city with this name");
     }
   };
 
@@ -29,15 +31,19 @@ function Weather() {
         type="text"
         placeholder="Enter city name"
       />
-      <button onClick={(e) => getData()}> Click to search</button>
+
+      <button onClick={getData}> Click to search</button>
       <br />
       <br />
 
       <div>
-        <h3>
+        <h1>{error}</h1>
+      { city !==null? <h3>
           The temperature in {<u>{city}</u>} is{" "}
           {parseFloat(weather.temp - 273.15).toFixed(1)}°C
-        </h3>
+        </h3>: seterror}
+
+
         <h5>
           Min: {parseFloat(weather.temp_min - 273.15).toFixed(1)}°C || Max:{" "}
           {parseFloat(weather.temp_max - 273.15).toFixed(1)}°C || Humidity:{" "}
