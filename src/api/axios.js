@@ -13,4 +13,6 @@ export const getWeatherData = async (cityname) => {
     throw error;
   }
 };
+
+
 export default getWeatherData;
